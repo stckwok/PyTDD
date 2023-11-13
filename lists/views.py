@@ -3,5 +3,7 @@ from django.http import HttpResponse
 
 
 # Create your views here.
+# render search folders called templates inside any of your apps’ directories. 
+# Then it builds an HttpResponse based on the content of the template.
 def home_page(request):
-    return HttpResponse("<html><title>To-Do lists</title></html>")
+    return render(request, "home.html")
