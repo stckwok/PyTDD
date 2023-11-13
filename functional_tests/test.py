@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from django.test import LiveServerTestCase
+
 import unittest
 import time
 import warnings
@@ -12,7 +14,7 @@ def ignore_warnings(test_func):
             test_func(self, *args, **kwargs)
     return do_test
 
-class VisitorPageTest(unittest.TestCase):
+class VisitorPageTest(LiveServerTestCase):
     @ignore_warnings
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -30,7 +32,7 @@ class VisitorPageTest(unittest.TestCase):
     @ignore_warnings
     def test_can_start_a_todolist(self):
         # 1. Launch home page of ToDoList App
-        self.browser.get("http://localhost:8000")
+        self.browser.get(self.live_server_url)
 
         print("Title : ", self.browser.title)
         # assert "Congratulations!" in self.browser.title
@@ -73,5 +75,5 @@ class VisitorPageTest(unittest.TestCase):
         # sleep a bit and close Firefox page
         time.sleep(5)
 
-if __name__ == "__main__":
-    unittest.main()   # warnings='ignore'
+# if __name__ == "__main__":
+#     unittest.main()   # warnings='ignore'
